@@ -13,5 +13,23 @@ router.get('/',  async (req, res) => {
     }
     res.end();
 })
-
+router.post('/', async (req, res) => {
+    dbCon.checkSession(req.body.sessionID, (result) => {
+        if (result === true) {
+            dbCon.getConversations((data) => {
+                if (data.result === true) {
+                    res.send(data.data);
+                    res.status(HttpStats.OK)
+                    res.end()
+                } else {
+                    res.end()
+                }
+            })
+        } else {
+            res.status(400)
+            res.end()
+        }
+        res.end()
+    })
+})
 module.exports = router

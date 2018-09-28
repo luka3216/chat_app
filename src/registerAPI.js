@@ -6,14 +6,10 @@ const randomString = require('./randomStrings')
 const router = new Router()
 
 router.post('/', async (req, res) => {
-    dbCon.checkUserPassword(req.body.username, req.body.password, (data) => {
+    dbCon.registerNewUser(req.body.email, req.body.phone, req.body.password, (data) => {
         if (data.result === true) {
-            let sessionID = randomString.getRandomString()
-            dbCon.registerSession(sessionID, data.user_id, (result) => {
-                res.send({ sessionID: sessionID, userID: data.user_id })
-                res.status(HttpStats.OK)
-                res.end()
-            })       
+            res.status(HttpStats.OK)
+         //   dbCon.initiateUserFriendsEntry(data.userID)
         } else {
             res.status(400)
             res.end()

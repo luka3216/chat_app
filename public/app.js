@@ -23,11 +23,43 @@ document.getElementById('login-submit').addEventListener('click', () => {
             console.log(response.status)
             if (response.status === 200) {
                 response.json().then(response => {
-                    localStorage.setItem('loggedIn', true)
                     localStorage.setItem("sessionID", response.sessionID)
+                    localStorage.setItem('userID', response.userID)
                 })
                 new FriendsManager().initiateFriendsUI(document.getElementById('app'));
                 
+            } else if(response.status === 400) {
+            }
+        })
+        
+})
+
+document.getElementById('register-submit').addEventListener('click', () => {
+    const formData = new FormData(document.getElementById('register-form'))
+    let data = {
+        phone: formData.get('phone'),
+        email: formData.get('email'),
+        password: formData.get('password')
+    }
+    fetch('./api/register', {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, same-origin, *omit
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        redirect: "follow", // manual, *follow, error
+        referrer: "no-referrer", // no-referrer, *client
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+    })
+        .then(response => {
+            console.log(response.status)
+            if (response.status === 200) {
+                response.json().then(response => {
+                    console.log("registered")
+                })                
             } else if(response.status === 400) {
             }
         })
