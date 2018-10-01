@@ -1,35 +1,33 @@
 const Router = require('express').Router
 const HttpStats = require('http-status-code')
 const dbCon = require('./db')
+const Cookies = require('cookies')
 
 const router = new Router()
 
-router.get('/',  async (req, res) => {
-    const client = dbCon.checkActiveSession(req.body.sessionID)
-    if (client != null) {
-        const activeConverastions = dbCon.getConversations(client.client_id);
-    } else {
-        res.status(400)
+router.get('/', (req, res) => {
+    let cookies = new Cookies(req, res)
+    let sessionID = cookies.get('sessionID')
+    if (!sessionID) {
+        req.status(400)
+        res.end()
+        return
     }
-    res.end();
-})
-router.post('/', async (req, res) => {
-    dbCon.checkSession(req.body.sessionID, (result) => {
-        if (result === true) {
+    dbCon.checkSession(sessionID, (result) => {
+        if (result.code === 200) {
             dbCon.getConversations((data) => {
-                if (data.result === true) {
+                if (data.code === 200) {
                     res.send(data.data);
                     res.status(HttpStats.OK)
-                    res.end()
                 } else {
-                    res.end()
+                    res.status(data.code)
                 }
+                res.end()
             })
         } else {
-            res.status(400)
+            res.status(result.code)
             res.end()
         }
-        res.end()
     })
 })
 module.exports = router

@@ -7,15 +7,15 @@ const router = new Router()
 
 router.post('/', async (req, res) => {
     dbCon.checkUserPassword(req.body.username, req.body.password, (data) => {
-        if (data.result === true) {
+        if (data.code === 200) {
             let sessionID = randomString.getRandomString()
-            dbCon.registerSession(sessionID, data.user_id, (result) => {
+            dbCon.registerSession(sessionID, data.user_id, () => {
                 res.send({ sessionID: sessionID, userID: data.user_id })
                 res.status(HttpStats.OK)
                 res.end()
             })       
         } else {
-            res.status(400)
+            res.status(data.code)
             res.end()
         }
     })
