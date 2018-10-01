@@ -5,7 +5,7 @@ const Cookies = require('cookies')
 
 const router = new Router()
 
-router.get('/', (req, res) => {
+router.get('/:userID', (req, res) => {
   let cookies = new Cookies(req, res)
   let sessionID = cookies.get('sessionID')
   if (!sessionID) {
@@ -15,7 +15,8 @@ router.get('/', (req, res) => {
   }
   dbCon.checkSession(sessionID, (result) => {
     if (result.code === 200) {
-      dbCon.getConversations((data) => {
+      dbCon.getChatData(result.userID, req.params.userID, (data) => {
+        console.log(result.userID, req.params.userID)
         if (data.code === 200) {
           res.send(data.data);
           res.status(HttpStats.OK)

@@ -12,7 +12,7 @@ let checkUserPassword = (username, password, callback) => {
             return
         }
         var dbo = db.db("test")
-        dbo.collection("users").findOne(({ email: username } || { phone: username }) && { passwordHash: passwordHash }, function (err, result) {
+        dbo.collection("users").findOne({ $and: [{passwordHash: passwordHash},{$or: [{ email: username}, { phone: username}]}]}, function (err, result) {
             if (err) {
                 callback({ code: 500 })
                 return
@@ -75,6 +75,27 @@ let getConversations = (callback) => {
     })
 }
 
+let getChatData = (asker, other, callback) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) {
+            callback({ code: 500 })
+            return
+        }
+        var dbo = db.db("test")
+        dbo.collection("chat_messages").find({$or: [{sender: asker, receiver: other}, {sender:other, receiver:asker}]}).toArray(function (err, res) {
+            if (err) {
+                callback({ code: 500 })
+                return
+            }
+            db.close()
+            if (res != null) {
+                callback({ code: 200, data: res })
+            } else {
+                callback({ code: 400 })
+            }
+        })
+    })
+}
 
 let checkSession = (sessionID, callback) => {
     MongoClient.connect(url, function (err, db) {
@@ -120,4 +141,4 @@ let registerSession = (sessionID, userID, callback) => {
     })
 }
 
-module.exports = { checkUserPassword, registerNewUser, registerSession, checkSession, getConversations };
+module.exports = { checkUserPassword, registerNewUser, registerSession, checkSession, getConversations, getChatData };
