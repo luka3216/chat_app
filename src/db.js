@@ -82,7 +82,7 @@ let getChatData = (asker, other, callback) => {
             return
         }
         var dbo = db.db("test")
-        dbo.collection("chat_messages").find({$or: [{sender: asker, receiver: other}, {sender:other, receiver:asker}]}).toArray(function (err, res) {
+        dbo.collection("chat_messages").find({$or: [{sender: asker, receiver: other}, {sender:other, receiver:asker}]},function (err, res) {
             if (err) {
                 callback({ code: 500 })
                 return
@@ -93,6 +93,21 @@ let getChatData = (asker, other, callback) => {
             } else {
                 callback({ code: 400 })
             }
+        })
+    })
+}
+
+let addChatMessage = (senderr, receiverr, msg) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) {
+            return
+        }
+        var dbo = db.db("test")
+        dbo.collection("chat_messages").insertOne({sender: senderr, receiver: receiverr, message: msg}, function (err, res) {
+            if (err) {
+                return
+            }
+            db.close()
         })
     })
 }
@@ -141,4 +156,4 @@ let registerSession = (sessionID, userID, callback) => {
     })
 }
 
-module.exports = { checkUserPassword, registerNewUser, registerSession, checkSession, getConversations, getChatData };
+module.exports = { checkUserPassword, registerNewUser, registerSession, checkSession, getConversations, getChatData, addChatMessage };
