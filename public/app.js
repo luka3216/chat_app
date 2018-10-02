@@ -28,14 +28,14 @@ document.getElementById('login-submit').addEventListener('click', () => {
                     localStorage.setItem("sessionID", response.sessionID)
                     localStorage.setItem('userID', response.userID)
                 })
-                new FriendsManager().initiateFriendsUI(document.getElementById('app'));
+                new FriendsManager().initiateFriendsUI(document.getElementById('app-root'));
 
             } else if (response.status === 400) {
             }
         })
 
 })
-
+/*
 document.getElementById('register-submit').addEventListener('click', () => {
     const formData = new FormData(document.getElementById('register-form'))
     let data = {
@@ -64,4 +64,4 @@ document.getElementById('register-submit').addEventListener('click', () => {
             }
         })
 
-})
+})*/

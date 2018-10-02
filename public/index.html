@@ -9,23 +9,25 @@
 </head>
 
 <body>
-    <div id='app'>
+    <div id='app-root'>
         <form id='login-form'>
-            <input type='text' name='username'>
-            <input type='password' name='password'>
-            <button type='button' id='login-submit'>log in</button>
-        </form>
-        <div id='register-template'>
-            <form id='register-form'>
-                <input type='text' name='email'>
-                <input type='text' name='phone'>
-                <input type='password' name='password'>
-                <button type='button' id='register-submit'>register</button>
-            </form>
-        </div>
+            <span class='border-bottom mid-left-margin'>ინტერნეტბანკში შესვლა</span>
+            <input type='text' class='mid-margin login-elem' name='username'>
+            <input type='password'  class='mid-margin login-elem' name='password'>
+            <button type='button'  class='mid-margin login-elem orange-bg white' id='login-submit'>შესვლა</button>
+        </form> 
     </div>
 
+    <template id='register-template'>
+        <form id='register-form'>
+            <input type='text' name='email'>
+            <input type='text' name='phone'>
+            <input type='password' name='password'>
+            <button type='button' class='orange' id='register-submit'>რეგისტრაცია</button>
+        </form>
+    </template>
     <script src='app.js' type='module'></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </body>
 
 </html>
