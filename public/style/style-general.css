@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'BOGMtavruli';
-    src: url('fonts/BOGMtavruli.eot?#iefix') format('embedded-opentype'),  url('fonts/BOGMtavruli.woff') format('woff'), url('fonts/BOGMtavruli.ttf')  format('truetype'), url('fonts/BOGMtavruli.svg#BOGMtavruli') format('svg');
+    src: url('../fonts/BOGMtavruli.eot?#iefix') format('embedded-opentype'),  url('../fonts/BOGMtavruli.woff') format('woff'), url('../fonts/BOGMtavruli.ttf')  format('truetype'), url('../fonts/BOGMtavruli.svg#BOGMtavruli') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'BOGNusxuri';
-    src: url('fonts/BOGNusxuri.eot?#iefix') format('embedded-opentype'),  url('fonts/BOGNusxuri.woff') format('woff'), url('fonts/BOGNusxuri.ttf')  format('truetype'), url('fonts/BOGNusxuri.svg#BOGNusxuri') format('svg');
+    src: url('../fonts/BOGNusxuri.eot?#iefix') format('embedded-opentype'),  url('../fonts/BOGNusxuri.woff') format('woff'), url('../fonts/BOGNusxuri.ttf')  format('truetype'), url('../fonts/BOGNusxuri.svg#BOGNusxuri') format('svg');
     font-weight: normal;
     font-style: normal;
 }

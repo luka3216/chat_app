@@ -10,7 +10,7 @@ export class chatFriendManager {
     })
 
     WS.addEventListener('message', (event) => {
-      console.log(event.data)
+      this.update(this.userID)
     })
     this.ws = WS
     document.querySelector('#chat-submit').addEventListener('click', (event) => {
@@ -33,7 +33,6 @@ export class chatFriendManager {
       referrer: "no-referrer", // no-referrer, *client
     })
       .then(response => {
-        console.log(response)
         if (response.status === 200) {
           response.json().then(response => {
             this._render(response[0].messages)
@@ -45,7 +44,6 @@ export class chatFriendManager {
   }
 
   _render(messages) {
-    console.log(messages)
     let root = document.querySelector('#messages')
     root.innerHTML = ""
     var temp = document.getElementsByTagName("template")[4];
@@ -72,10 +70,10 @@ export class chatFriendManager {
       receiver: this.userID,
       type: 'msg'
     }
-    console.log(message)
     this.ws.send(JSON.stringify(message))
     setTimeout(() => {
       this.update(this.userID)
     }, 1000)
+    document.querySelector('#chat-area').value = "";
   }
 }

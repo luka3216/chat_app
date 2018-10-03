@@ -34,7 +34,6 @@ export class loginForm {
                 body: JSON.stringify(data), // body data type must match "Content-Type" header
             })
                 .then(response => {
-                    console.log(response.status)
                     if (response.status === 200) {
                         response.json().then(response => {
                             document.cookie = "sessionID=" + response.sessionID

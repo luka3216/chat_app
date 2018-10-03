@@ -34,9 +34,7 @@ export class registerForm {
                 body: JSON.stringify(data), // body data type must match "Content-Type" header
             })
                 .then(response => {
-                    console.log(response.status)
                     if (response.status === 201) {
-                        console.log("registered")
                         new loginForm(this.parent)._render()
                     } else if (response.status === 400) {
                     }
