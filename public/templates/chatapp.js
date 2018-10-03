@@ -5,6 +5,8 @@ export class chatApplication {
         this._render();
         this.FriendsApp = new FriendsApp(this.domObj.querySelector('#friend-list'));
         this.FriendsApp.upadateList()
+        console.log(document.getElementById('friend-submit'))
+
     }
 
     _render() {
@@ -15,5 +17,13 @@ export class chatApplication {
         root.appendChild(clon);
         
         this.domObj = root.children[0]
+        document.getElementById('friend-submit').addEventListener('click', () => {
+            console.log('cloc')
+            this.FriendsApp.addFriend();
+        })
+    }
+
+    receiveMessage(message) {
+
     }
 }

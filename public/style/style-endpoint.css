@@ -1,4 +1,6 @@
-@import url('./style.css');
+@import url('./style-general.css');
+@import url('./style-layout.css');
+@import url('./style-chat.css');
 
 .chat-friend {
     flex-shrink: 0;

@@ -30,6 +30,63 @@ let checkUserPassword = (username, password) => {
     })
 }
 
+let getUserData = (userID) => {
+    return new Promise((resolve, reject) => {
+                MongoClient.connect(url, function (err, db) {
+            if (err) {
+                resolve({ code: 500 })
+                return
+            }
+            var dbo = db.db("test")
+            dbo.collection("users").findOne({_id: userID}, 
+                { projection: { _id: 1, name: 1} },
+                function (err, result) {
+                if (err) {
+                    resolve({ code: 500 })
+                    return
+                } else {
+                    db.close()
+                    if (result != null) {
+                        resolve({ code: 200, user_id: result._id, name: result.name })
+                    } else {
+                        resolve({ code: 400 })
+                    }
+                }
+            })
+        })
+    })
+}
+
+
+let findUser = (username) => {
+    return new Promise((resolve, reject) => {
+                MongoClient.connect(url, function (err, db) {
+            if (err) {
+                resolve({ code: 500 })
+                return
+            }
+            var dbo = db.db("test")
+            dbo.collection("users").findOne({$or: [{email: username}, {phone: username}, {name: username}]}, 
+                { projection: { _id: 1} },
+                function (err, result) {
+                if (err) {
+                    resolve({ code: 500 })
+                    return
+                } else {
+                    db.close()
+                    if (result != null) {
+                        resolve({ code: 200, user_id: result._id })
+                    } else {
+                        resolve({ code: 400 })
+                    }
+                }
+            })
+        })
+    })
+}
+
+
+
 
 let registerNewUser = (email, phone, password, name) => {
     return new Promise((resolve, reject) => {
@@ -57,7 +114,32 @@ let registerNewUser = (email, phone, password, name) => {
     })
 }
 
-let getConversations = () => {
+let initConversation = (userID, userID2)=> {
+    return new Promise((resolve, reject) => {
+        let id = randomString.getRandomString();
+        MongoClient.connect(url, function (err, db) {
+            if (err) {
+                resolve({ code: 500 })
+                return
+            }
+            var dbo = db.db("test")
+            dbo.collection("conversations").insertOne({ _id: id, members: [userID,  userID2], messages: [], date: Date.now() }, function (err, result) {
+                if (err) {
+                    resolve({ code: 409 })
+                    return
+                }
+                db.close()
+                if (result != null) {
+                    resolve({ code: 201 })
+                } else {
+                    resolve({ code: 400 })
+                }
+            })
+        })
+    })
+}
+
+let getConversations = (userID) => {
     return new Promise((resolve, reject) => {
         MongoClient.connect(url, function (err, db) {
             if (err) {
@@ -65,7 +147,7 @@ let getConversations = () => {
                 return
             }
             var dbo = db.db("test")
-            dbo.collection("users").find({}, { projection: { _id: 1, email: 1, phone: 1, name: 1} }).toArray(function (err, res) {
+            dbo.collection("conversations").find({members: userID}, { projection: { _id: 0, members: 1, messages:1} }).toArray(function (err, res) {
                 if (err) {
                     resolve({ code: 500 })
                     return
@@ -89,16 +171,13 @@ let getChatData = (asker, other) => {
                 return
             }
             var dbo = db.db("test")
-            console.log(1)
-            dbo.collection("chat_messages").find({ $or: [{ sender: asker, receiver: other }, { sender: other, receiver: asker }] }
-                , { projection: { sender: 1, receiver: 1, date: 1 } }).toArray(function (err, res) {
+            dbo.collection("conversations").find({ members: {$all: [asker, other]}}
+                , { projection: {messages: 1, _id: 0} }).toArray(function (err, res) {
                     if (err) {
                         resolve({ code: 500 })
                         return
                     }
-                    console.log(2)
                     db.close()
-                    console.log(res)
                     resolve({ code: 200, data: res })
                 })
         })
@@ -111,7 +190,8 @@ let addChatMessage = (senderr, receiverr, msg) => {
             return
         }
         var dbo = db.db("test")
-        dbo.collection("chat_messages").insertOne({ sender: senderr, receiver: receiverr, message: msg, date: Date.now() }, function (err, res) {
+        dbo.collection("conversations").updateOne({members: {$all: [senderr, receiverr]}}
+            , {$push: {messages: {sender: senderr, receiver: receiverr, message: msg, date: Date.now()}}}, function (err, res) {
             if (err) {
                 return
             }
@@ -168,4 +248,4 @@ let registerSession = (sessionID, userID) => {
     })
 }
 
-module.exports = { checkUserPassword, registerNewUser, registerSession, checkSession, getConversations, getChatData, addChatMessage };
+module.exports = { checkUserPassword, registerNewUser, registerSession, checkSession, getConversations, getChatData, addChatMessage, initConversation, getUserData, findUser };
