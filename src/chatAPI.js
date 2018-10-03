@@ -13,9 +13,11 @@ router.get('/:userID', (req, res) => {
     res.end()
     return
   }
-  dbCon.checkSession(sessionID, (result) => {
+  dbCon.checkSession(sessionID)
+  .then((result) => {
     if (result.code === 200) {
-      dbCon.getChatData(result.userID, req.params.userID, (data) => {
+      dbCon.getChatData(result.userID, req.params.userID)
+      .then((data) => {
         console.log(result.userID, req.params.userID)
         if (data.code === 200) {
           res.send(data.data);

@@ -5,7 +5,8 @@ const dbCon = require('./db')
 const router = new Router()
 
 router.post('/', async (req, res) => {
-    dbCon.checkSession(req.body.sessionID, (data) => {
+    dbCon.checkSession(req.body.sessionID)
+    .then((data) => {
         if (data.result === true) {
             res.status(HttpStats.OK)
         } else {

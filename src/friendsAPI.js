@@ -13,9 +13,11 @@ router.get('/', (req, res) => {
         res.end()
         return
     }
-    dbCon.checkSession(sessionID, (result) => {
+    dbCon.checkSession(sessionID)
+    .then((result) => {
         if (result.code === 200) {
-            dbCon.getConversations((data) => {
+            dbCon.getConversations()
+            .then((data) => {
                 if (data.code === 200) {
                     res.send(data.data);
                     res.status(HttpStats.OK)

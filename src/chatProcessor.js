@@ -16,7 +16,8 @@ let processClient = (client) => {
   client.on('message', (message) => {
     message = JSON.parse(message)
     if (message.type === 'i') {
-      dbCon.checkSession(message.sessionID, (result) => {
+      dbCon.checkSession(message.sessionID)
+      .then((result) => {
         if (result.code === 200) {
           registerChatClient(result.userID, client)
           client.chatUserID = result.userID

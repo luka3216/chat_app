@@ -4,7 +4,8 @@ const dbCon = require('./db')
 const router = new Router()
 
 router.post('/', async (req, res) => {
-    dbCon.registerNewUser(req.body.email, req.body.phone, req.body.password, (data) => {
+    dbCon.registerNewUser(req.body.email, req.body.phone, req.body.password)
+    .then((data) => {
         res.status(data.code)
         res.end()
     })
