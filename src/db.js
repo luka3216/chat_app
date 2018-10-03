@@ -3,6 +3,8 @@ var url = "mongodb://localhost:27017/"
 var sha256 = require('sha256')
 const randomString = require('./randomStrings')
 
+const dbName = 'test'
+
 
 let checkUserPassword = (username, password) => {
     return new Promise((resolve, reject) => {
@@ -12,7 +14,7 @@ let checkUserPassword = (username, password) => {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("users").findOne({ $and: [{ passwordHash: passwordHash }, { $or: [{ email: username }, { phone: username }] }] }, function (err, result) {
                 if (err) {
                     resolve({ code: 500 })
@@ -37,7 +39,7 @@ let getUserData = (userID) => {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("users").findOne({_id: userID}, 
                 { projection: { _id: 1, name: 1} },
                 function (err, result) {
@@ -65,7 +67,7 @@ let findUser = (username) => {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("users").findOne({$or: [{email: username}, {phone: username}, {name: username}]}, 
                 { projection: { _id: 1} },
                 function (err, result) {
@@ -97,7 +99,7 @@ let registerNewUser = (email, phone, password, name) => {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("users").insertOne({ _id: id, email: email, phone: phone, passwordHash: passwordHash, name: name, date: Date.now() }, function (err, result) {
                 if (err) {
                     resolve({ code: 409 })
@@ -122,7 +124,7 @@ let initConversation = (userID, userID2)=> {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("conversations").insertOne({ _id: id, members: [userID,  userID2], messages: [], date: Date.now() }, function (err, result) {
                 if (err) {
                     resolve({ code: 409 })
@@ -146,7 +148,7 @@ let getConversations = (userID) => {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("conversations").find({members: userID}, { projection: { _id: 0, members: 1, messages:1} }).toArray(function (err, res) {
                 if (err) {
                     resolve({ code: 500 })
@@ -170,7 +172,7 @@ let getChatData = (asker, other) => {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("conversations").find({ members: {$all: [asker, other]}}
                 , { projection: {messages: 1, _id: 0} }).toArray(function (err, res) {
                     if (err) {
@@ -189,7 +191,7 @@ let addChatMessage = (senderr, receiverr, msg) => {
         if (err) {
             return
         }
-        var dbo = db.db("test")
+        var dbo = db.db(dbName)
         dbo.collection("conversations").updateOne({members: {$all: [senderr, receiverr]}}
             , {$push: {messages: {sender: senderr, receiver: receiverr, message: msg, date: Date.now()}}}, function (err, res) {
             if (err) {
@@ -207,7 +209,7 @@ let checkSession = (sessionID) => {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("sessions").findOne({ _id: sessionID }, function (err, res) {
                 if (err) {
                     resolve({ code: 500 })
@@ -231,7 +233,7 @@ let registerSession = (sessionID, userID) => {
                 resolve({ code: 500 })
                 return
             }
-            var dbo = db.db("test")
+            var dbo = db.db(dbName)
             dbo.collection("sessions").insertOne({ _id: sessionID, user_id: userID }, function (err, result) {
                 if (err) {
                     resolve({ code: 500 })
