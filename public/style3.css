@@ -1,24 +1,28 @@
 @import url('./style.css');
 @import url('./style2.css');
+@import url('./style4.css');
 
 #left-column {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     border-right: solid 1px rgb(236, 236, 236);
-    max-width: 300px;
+    width: 400px;
     height: 100%;
     margin: 0 0;
 }
 #friend-list {
     flex-grow: 1;
-    flex-shrink: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     overflow: scroll;
     margin: 0 0;
     padding: 0;
+}
+
+#friend-list .friend-info {
+    flex-grow: 1;
 }
 #left-column #list-header {
     border-bottom: solid 1px rgb(235, 235, 235);
@@ -42,6 +46,7 @@
 }
 
 #right-column {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -59,4 +64,22 @@
 
 #right-column #bar .profile-pic {
     margin-top: 0;
+}
+
+#right-column #chat-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height:200px;
+    border-top: solid 1px rgb(226, 226, 226);
+}
+
+#chat-box #chat-area {
+    margin: 10px 10px;
+    flex-grow: 1;
+    resize: none;
+}
+
+#chat-box #send-button{
+    align-self: flex-end;
 }

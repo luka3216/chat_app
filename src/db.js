@@ -31,7 +31,7 @@ let checkUserPassword = (username, password) => {
 }
 
 
-let registerNewUser = (email, phone, password) => {
+let registerNewUser = (email, phone, password, name) => {
     return new Promise((resolve, reject) => {
         let passwordHash = sha256(password).toUpperCase()
         let id = randomString.getRandomString();
@@ -41,7 +41,7 @@ let registerNewUser = (email, phone, password) => {
                 return
             }
             var dbo = db.db("test")
-            dbo.collection("users").insertOne({ _id: id, email: email, phone: phone, passwordHash: passwordHash, date: Date.now() }, function (err, result) {
+            dbo.collection("users").insertOne({ _id: id, email: email, phone: phone, passwordHash: passwordHash, name: name, date: Date.now() }, function (err, result) {
                 if (err) {
                     resolve({ code: 409 })
                     return
@@ -65,7 +65,7 @@ let getConversations = () => {
                 return
             }
             var dbo = db.db("test")
-            dbo.collection("users").find({}, { projection: { _id: 1, email: 1, phone: 1 } }).toArray(function (err, res) {
+            dbo.collection("users").find({}, { projection: { _id: 1, email: 1, phone: 1, name: 1} }).toArray(function (err, res) {
                 if (err) {
                     resolve({ code: 500 })
                     return

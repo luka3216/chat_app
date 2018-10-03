@@ -14,6 +14,7 @@
 
         </div>
     </div>
+
     <template id='register'>
         <form id='register-form'>
             <div class="placeholder" data-placeholder="ელექტრონული ფოსტა">
@@ -31,6 +32,7 @@
             <button type='button' class='mid-margin login-elem orange-bg white smooth-border' id='register-submit'>რეგისტრაცია</button>
         </form>
     </template>
+
     <template id='login-template'>
         <form id='login-form'>
             <h4 class='border-bottom mid-left-margin'>ინტერნეტბანკში შესვლა</h4>
@@ -44,30 +46,61 @@
             <button type='button' class='login-elem orange border-top smooth-border light-bg' id='register-switch'>რეგისტრაცია</button>
         </form>
     </template>
+
     <template id='chat-application-template'>
         <div id='left-column'>
             <div id='list-header'>
                 <span id='friends-title'>ყველა მიმოწერა</span>
             </div>
+            <ul id='friend-list'>
+            </ul>
         </div>
         <div id='right-column'>
-
-        </div>
-    </template>
-    <template id='chat-friend-header'>
-        <div class='chat-friend'>
-            <img class='profile-pic' src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
-            <div class='friend-info'>
-                <div class='header'>
-                    <span class='name'> </span>
-                    <span class='time'></span>
+            <div id='bar'>
+                <img class='profile-pic marg-left' src="">
+            </div>
+            <div id='messages'>
+            </div>
+            <div id='chat-box'>
+                <textarea id='chat-area'></textarea>
+                <div id='send-button'>
+                    <button type='button' class='mid-margin login-elem orange-bg white smooth-border' id='register-submit'>გაგზავნა</button>
                 </div>
-                <span class='msg-fragment'></span>
             </div>
         </div>
     </template>
+
+    <template id='chat-friend-template'>
+        <li class='chat-friend'>
+            <img class='profile-pic' src="">
+            <div class='friend-info'>
+                <div class='header'>
+                    <span class='name'>sbd </span>
+                    <span class='time'>12:05pm</span>
+                </div>
+                <span class='msg-fragment'></span>
+            </div>
+        </li>
+    </template>
+
+    <template id='chat-message-template'>
+        <div class='chat-msg'>
+            <img class='profile-pic' src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+            <div class='msg-data'>
+                <div class='sender-data'>
+                    <span class='time'></span>
+                    <span class='sender-name'></span>
+                </div>
+                <div class='msg-content'>
+                    <span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <script src='app.js' type='module'></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style3.css">
 </body>
 
 </html>

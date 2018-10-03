@@ -1,5 +1,5 @@
 import {registerForm} from './register.js'
-import {chatApplication} from '../chatapp.js'
+import {chatApplication} from './chatapp.js'
 
 export class loginForm {
     constructor(parent) {
