@@ -1,7 +1,6 @@
-import {registerForm} from './register.js'
-import {chatApplication} from '../chatapp.js'
+import {loginForm} from './login.js'
 
-export class loginForm {
+export class registerForm {
     constructor(parent) {
         this.parent = parent
     }
@@ -9,18 +8,19 @@ export class loginForm {
     _render() {
         let form = this.parent
         form.innerHTML = ""
-        var temp = document.getElementsByTagName("template")[1];
+        var temp = document.getElementsByTagName("template")[0];
         var clon = temp.content.cloneNode(true);
         form.appendChild(clon);
-        form.style.height = '350px'
-
-        document.getElementById('login-submit').addEventListener('click', () => {
-            const formData = new FormData(document.querySelector('#login-form'))
+        form.style.height = '400px'
+        document.getElementById('register-submit').addEventListener('click', () => {
+            const formData = new FormData(document.getElementById('register-form'))
             let data = {
-                username: formData.get('username'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                name: formData.get('name'),
                 password: formData.get('password')
             }
-            fetch('./api/login', {
+            fetch('./api/register', {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
                 mode: "cors", // no-cors, cors, *same-origin
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -35,21 +35,13 @@ export class loginForm {
             })
                 .then(response => {
                     console.log(response.status)
-                    if (response.status === 200) {
-                        response.json().then(response => {
-                            document.cookie = "sessionID=" + response.sessionID
-                            document.cookie = "userID=" + response.userID
-                            localStorage.setItem("sessionID", response.sessionID)
-                            localStorage.setItem('userID', response.userID)
-                        })
-                        new chatApplication()._render();
-
+                    if (response.status === 201) {
+                        console.log("registered")
+                        new loginForm(this.parent)._render()
                     } else if (response.status === 400) {
                     }
                 })
-        })
-        document.getElementById('register-switch').addEventListener('click', () => {
-            new registerForm(document.querySelector('#form-div'))._render()
+
         })
     }
 }

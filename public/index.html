@@ -10,19 +10,62 @@
 
 <body>
     <div id='app-root'>
-        <form id='login-form'>
-            <h3 class='border-bottom mid-left-margin'>ინტერნეტბანკში შესვლა</h3>
-            <input type='text' class='mid-margin login-elem' name='username'>
-            <input type='password'  class='mid-margin login-elem' name='password'>
-            <button type='button'  class='mid-margin login-elem orange-bg white' id='login-submit'>შესვლა</button>
-        </form> 
-        <form id='register-form'>
-            <input type='text' name='email'>
-            <input type='text' name='phone'>
-            <input type='password' name='password'>
-            <button type='button' class='orange' id='register-submit'>რეგისტრაცია</button>
-        </form>
+        <div id='form-div' class='middle'>
+
+        </div>
     </div>
+    <template id='register'>
+        <form id='register-form'>
+            <div class="placeholder" data-placeholder="ელექტრონული ფოსტა">
+                <input type='text' class='mid-margin login-elem smooth-border' name='email' required>
+            </div>
+            <div class="placeholder" data-placeholder="ტელეფონის ნომერი">
+                <input type='text' class='mid-margin login-elem smooth-border' name='phone' required>
+            </div>
+            <div class="placeholder" data-placeholder="სახელი და გვარი">
+                <input type='text' class='mid-margin login-elem smooth-border' name='name' required>
+            </div>
+            <div class="placeholder" data-placeholder="პაროლი">
+                <input type='password' class='mid-margin login-elem smooth-border' name='password' required>
+            </div>
+            <button type='button' class='mid-margin login-elem orange-bg white smooth-border' id='register-submit'>რეგისტრაცია</button>
+        </form>
+    </template>
+    <template id='login-template'>
+        <form id='login-form'>
+            <h4 class='border-bottom mid-left-margin'>ინტერნეტბანკში შესვლა</h4>
+            <div class="placeholder" data-placeholder="მომხმარებლის სახელი">
+                <input type='text' class='mid-margin login-elem smooth-border' name='username' required>
+            </div>
+            <div class="placeholder" data-placeholder="პაროლი">
+                <input type='password' class='mid-margin login-elem smooth-border' name='password' required>
+            </div>
+            <button type='button' class='mid-margin login-elem orange-bg white smooth-border' id='login-submit'>შესვლა</button>
+            <button type='button' class='login-elem orange border-top smooth-border light-bg' id='register-switch'>რეგისტრაცია</button>
+        </form>
+    </template>
+    <template id='chat-application-template'>
+        <div id='left-column'>
+            <div id='list-header'>
+                <span id='friends-title'>ყველა მიმოწერა</span>
+            </div>
+        </div>
+        <div id='right-column'>
+
+        </div>
+    </template>
+    <template id='chat-friend-header'>
+        <div class='chat-friend'>
+            <img class='profile-pic' src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+            <div class='friend-info'>
+                <div class='header'>
+                    <span class='name'> </span>
+                    <span class='time'></span>
+                </div>
+                <span class='msg-fragment'></span>
+            </div>
+        </div>
+    </template>
     <script src='app.js' type='module'></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </body>

@@ -38,7 +38,7 @@ let registerNewUser = (email, phone, password, callback) => {
             return
         }
         var dbo = db.db("test")
-        dbo.collection("users").insertOne({ _id: id, email: email, phone: phone, passwordHash: passwordHash }, function (err, result) {
+        dbo.collection("users").insertOne({ _id: id, email: email, phone: phone, passwordHash: passwordHash, date: Date.now() }, function (err, result) {
             if (err) {
                 callback({ code: 409 })
                 return
@@ -103,7 +103,7 @@ let addChatMessage = (senderr, receiverr, msg) => {
             return
         }
         var dbo = db.db("test")
-        dbo.collection("chat_messages").insertOne({sender: senderr, receiver: receiverr, message: msg}, function (err, res) {
+        dbo.collection("chat_messages").insertOne({sender: senderr, receiver: receiverr, message: msg, date: Date.now()}, function (err, res) {
             if (err) {
                 return
             }

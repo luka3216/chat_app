@@ -1,45 +1,75 @@
+@font-face {
+    font-family: 'BOGMtavruli';
+    src: url('fonts/BOGMtavruli.eot?#iefix') format('embedded-opentype'),  url('fonts/BOGMtavruli.woff') format('woff'), url('fonts/BOGMtavruli.ttf')  format('truetype'), url('fonts/BOGMtavruli.svg#BOGMtavruli') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BOGNusxuri';
+    src: url('fonts/BOGNusxuri.eot?#iefix') format('embedded-opentype'),  url('fonts/BOGNusxuri.woff') format('woff'), url('fonts/BOGNusxuri.ttf')  format('truetype'), url('fonts/BOGNusxuri.svg#BOGNusxuri') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 html,
 body {
     margin:0;
     padding:0;
+        font-family: 'BOGMtavruli';
 }
-
-#login-form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+input {
+    border: solid 1px rgb(214, 214, 214);
+    transition: 0.3s;
+}
+#form-div {
+    
+    border: solid 1px rgb(148, 148, 255);
+    overflow: hidden;
+    width: 260px;
+    transition: all 0.1s linear;
+}
+#login-form{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 250px;
+    height: 350px;
     align-items: center;
-    border: solid 1px rgb(148, 148, 255);
-    overflow: hidden;
 }
-#login-form h3 {
+#register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: inherit;
+    align-items: center;
+}
+#form-div h4,
+#form-div span {
     width: 100%;
     padding-left: 40px;
     padding-bottom: 10px;
 }
 
-
-.login-elem:focus {
-    width: 100px;
-    transition: 0.5s;
+#form-div input:focus {
+    padding-top: 30px;
+    padding-bottom: 0;
+}
+#form-div input {
+    height: 25px;
+    padding-top: 15px;;
+    vertical-align: bottom;
 }
 
+
 .login-elem {
-    font-family: sans-serif !important;
     padding-left: 20px;
     padding-right: 20px;
     width: 180px;
-    height: 30px;
+    height: 40px;
 }
 
-#login-submit {
+button {
     border:none;
-    width: 220px;
+    width: 220px !important;
 }
 
 .login-elem input {
@@ -61,5 +91,47 @@ body {
 }
 
 .border-bottom {
-    border-bottom: solid 1px rgb(212, 212, 212);
+    border-bottom: solid 1px rgb(212, 212, 212) !important;
+}
+
+.orange {
+    color: orangered;
+}
+
+.border-top {
+    border-top: solid 1px rgb(185, 184, 184) !important;
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#register-switch {
+    width: 100% !important;
+    background-color: rgb(247, 247, 247);
+    border: none;
+}
+
+.smooth-border {
+    border-radius: 4px;
+}
+
+
+.placeholder
+{
+    position: relative;
+}
+
+.placeholder::after
+{
+    position: absolute;
+    left: 37px;
+    top: 8px;
+    content: attr(data-placeholder);
+    pointer-events: none;
+    font-size: 12px;
+    opacity: 0.6;
 }
