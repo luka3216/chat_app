@@ -6,7 +6,7 @@ let registerChatClient = (userID, WebSocket) => {
   live_sockets[userID] = WebSocket
 }
 
-let removeChatClient = (userID, WebSocket) => {
+let removeChatClient = (userID) => {
   live_sockets[userID] = null
 }
 

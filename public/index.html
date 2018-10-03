@@ -11,21 +11,18 @@
 <body>
     <div id='app-root'>
         <form id='login-form'>
-            <span class='border-bottom mid-left-margin'>ინტერნეტბანკში შესვლა</span>
+            <h3 class='border-bottom mid-left-margin'>ინტერნეტბანკში შესვლა</h3>
             <input type='text' class='mid-margin login-elem' name='username'>
             <input type='password'  class='mid-margin login-elem' name='password'>
             <button type='button'  class='mid-margin login-elem orange-bg white' id='login-submit'>შესვლა</button>
         </form> 
-    </div>
-
-    <template id='register-template'>
         <form id='register-form'>
             <input type='text' name='email'>
             <input type='text' name='phone'>
             <input type='password' name='password'>
             <button type='button' class='orange' id='register-submit'>რეგისტრაცია</button>
         </form>
-    </template>
+    </div>
     <script src='app.js' type='module'></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </body>
